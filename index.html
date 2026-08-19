@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shamsa Yousaf — Tracking Systems That Hold Up When You Check Them</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --main: #36A391;
+    --main-dark: #2a8175;
+    --text: #182E4D;
+    --bg: #F7F8F9;
+    --card: #FFFFFF;
+    --accent: #6B9AC4;
+    --line: #DDE3E8;
+    --mono: 'IBM Plex Mono', monospace;
+    --serif: 'Playfair Display', serif;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--serif);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: var(--main-dark); }
+
+  .wrap{
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- Status strip (signature element) ---------- */
+  .status-strip{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--text);
+    color: #E7EEF5;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+  }
+  .status-strip .wrap{
+    max-width: 860px;
+    display: flex;
+    gap: 22px;
+    padding: 9px 28px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .status-dot{
+    display:inline-block;
+    width:7px; height:7px;
+    border-radius:50%;
+    background: var(--main);
+    margin-right: 7px;
+    box-shadow: 0 0 0 3px rgba(54,163,145,0.18);
+  }
+  .status-item{ opacity: 0.92; }
+
+  section{ padding: 76px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type{ border-bottom: none; }
+
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin: 0 0 14px;
+  }
+
+  h1,h2,h3{ font-family: var(--serif); font-weight: 600; margin: 0 0 18px; color: var(--text); }
+  h1{ font-size: 42px; line-height: 1.18; font-weight: 700; }
+  h2{ font-size: 28px; }
+  h3{ font-size: 19px; margin-bottom: 8px; }
+  p{ margin: 0 0 16px; }
+
+  code, .code{
+    font-family: var(--mono);
+    font-size: 0.88em;
+    background: #EEF2F0;
+    color: var(--main-dark);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{ padding-top: 96px; padding-bottom: 88px; }
+  .hero .proof{
+    font-size: 19px;
+    max-width: 640px;
+    color: #3C4E68;
+  }
+  .btn{
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    padding: 13px 26px;
+    border-radius: 3px;
+    border: 1.5px solid var(--main);
+    color: var(--main-dark);
+    background: transparent;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .btn:hover{ background: var(--main); color: #fff; }
+  .btn-solid{ background: var(--main); color: #fff; }
+  .btn-solid:hover{ background: var(--main-dark); }
+
+  /* ---------- Verify checklist ---------- */
+  .verify-list{ list-style: none; margin: 0; padding: 0; }
+  .verify-list li{
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+  .verify-list li:last-child{ border-bottom: 1px solid var(--line); }
+  .verify-mark{
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--main-dark);
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .verify-text b{ font-weight: 600; }
+  .verify-note{
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: #6C7A8C;
+    margin-top: 4px;
+    display:block;
+  }
+
+  /* ---------- Demo journey ---------- */
+  .journey-steps{ counter-reset: step; margin: 0; padding: 0; list-style: none; }
+  .journey-steps li{
+    counter-increment: step;
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 16px;
+    padding: 14px 0;
+  }
+  .journey-steps li::before{
+    content: counter(step);
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--main-dark);
+    background: #EAF5F2;
+    border-radius: 50%;
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ---------- Build decisions ---------- */
+  .decision{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--main);
+    border-radius: 4px;
+    padding: 20px 22px;
+    margin-bottom: 14px;
+  }
+  .decision summary{
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    list-style: none;
+  }
+  .decision summary::-webkit-details-marker{ display:none; }
+  .decision summary::after{
+    content: '+';
+    float: right;
+    font-family: var(--mono);
+    color: var(--accent);
+  }
+  .decision[open] summary::after{ content: '–'; }
+  .decision p{ margin-top: 12px; font-size: 15px; color: #3C4E68; }
+
+  /* ---------- Proof grid ---------- */
+  .proof-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .proof-card{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .proof-card img{ width: 100%; display: block; border-bottom: 1px solid var(--line); }
+  .proof-card .cap{
+    padding: 12px 16px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: #4A5A70;
+  }
+  .proof-full{ grid-column: 1 / -1; }
+
+  /* ---------- GSC honesty ---------- */
+  .gsc-block{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 24px;
+  }
+  .gsc-block img{ width: 100%; border-radius: 3px; border: 1px solid var(--line); margin-bottom: 16px; }
+  .gsc-stats{
+    display: flex;
+    gap: 28px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: #4A5A70;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .gsc-stats span{ margin-right: 8px; }
+  .gsc-stats b{ color: var(--text); font-size: 15px; display:block; font-family: var(--serif); }
+
+  /* ---------- CTA ---------- */
+  .cta{ text-align: left; }
+  .cta h2{ font-size: 26px; }
+
+  footer{
+    padding: 34px 0 50px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: #8592A3;
+  }
+
+  @media (max-width: 640px){
+    h1{ font-size: 30px; }
+    .proof-grid{ grid-template-columns: 1fr; }
+    .gsc-stats{ gap: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="status-strip">
+  <div class="wrap">
+    <span class="status-item"><span class="status-dot"></span>GTM connected</span>
+    <span class="status-item"><span class="status-dot"></span>GA4 collecting</span>
+    <span class="status-item"><span class="status-dot"></span>Meta Pixel firing</span>
+    <span class="status-item"><span class="status-dot"></span>GSC verified</span>
+  </div>
+</div>
+
+<!-- 1. HERO -->
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Shamsa Yousaf — Tracking &amp; Measurement</p>
+    <h1>I build tracking systems that hold up when someone actually checks them.</h1>
+    <p class="proof">I unify Meta Pixel, GA4, GTM, and GSC into one clean, verifiable measurement system — and instead of asking you to trust that, I hand you the dev tools and let you watch it work in real time.</p>
+    <a class="btn btn-solid" href="https://shamsayousaf.com/" target="_blank" rel="noopener">Explore Live Demo →</a>
+  </div>
+</section>
+
+<!-- 2. WHAT I'LL VERIFY -->
+<section id="verify">
+  <div class="wrap">
+    <p class="eyebrow">What you'll verify</p>
+    <h2>Nothing here asks for trust. Everything here is checkable.</h2>
+    <ul class="verify-list">
+      <li>
+        <span class="verify-mark">✓</span>
+        <div class="verify-text">
+          <b>GTM architecture</b> — an open container you can inspect tag-by-tag, trigger-by-trigger.
+        </div>
+      </li>
+      <li>
+        <span class="verify-mark">✓</span>
+        <div class="verify-text">
+          <b>GA4 event collection</b> — events firing live in DebugView as you interact with the site.
+        </div>
+      </li>
+      <li>
+        <span class="verify-mark">✓</span>
+        <div class="verify-text">
+          <b>Meta Pixel implementation</b> — confirmed with Pixel Helper on a real page load.
+        </div>
+      </li>
+      <li>
+        <span class="verify-mark">✓</span>
+        <div class="verify-text">
+          <b>GSC verification</b> — a connected, verified property, shown honestly as static evidence, not a live walkthrough.
+        </div>
+      </li>
+      <li>
+        <span class="verify-mark">✓</span>
+        <div class="verify-text">
+          <b>Data quality</b> — a duplicate-prevention check you can trigger yourself by refreshing the thank-you page.
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- 3. DEMO JOURNEY -->
+<section id="journey">
+  <div class="wrap">
+    <p class="eyebrow">Demo journey</p>
+    <h2>A path a technical peer can run in under two minutes.</h2>
+    <p class="proof" style="font-size:16px;">No login, no access request, no tutorial pacing — you already know these tools. This just points at what to look for.</p>
+    <ol class="journey-steps">
+      <li>Open <a href="https://shamsayousaf.com/" target="_blank" rel="noopener">shamsayousaf.com</a> and open DevTools.</li>
+      <li>Go to the Network tab, filter for <code>collect</code> and <code>facebook</code>.</li>
+      <li>Submit the lead form and watch the GA4 and Pixel requests fire live.</li>
+      <li>Refresh the thank-you page and confirm no duplicate event fires.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- 4. BUILD DECISIONS -->
+<section id="decisions">
+  <div class="wrap">
+    <p class="eyebrow">Build decisions</p>
+    <h2>Seven real calls, each with a reason.</h2>
+
+    <details class="decision" open>
+      <summary>One GA4 lead event per entry point, not one event for the whole site</summary>
+      <p>The main contact form fires a single <code>lead_submit</code> event with <code>service_type</code> as a parameter, instead of splitting by service — the service is a detail about the lead, not a different action. The popup capture is a separate entry point entirely, so it fires its own event rather than being folded into the main form's numbers. Two events, because there are genuinely two different places someone can convert — not because the same action got split.</p>
+    </details>
+
+    <details class="decision">
+      <summary>Meta's standard Lead event, not a custom one</summary>
+      <p>GA4 reports to me, but Meta's ad algorithm can't read GA4. The Pixel feeds a completely different audience, so it needed to speak Meta's own standard event language.</p>
+    </details>
+
+    <details class="decision">
+      <summary>GTM hooked into Elementor's actual submit-success signal, not a button click</summary>
+      <p>A click doesn't confirm the form succeeded. The trigger fires on confirmed success, not on intent.</p>
+    </details>
+
+    <details class="decision">
+      <summary>Thank-you page as the primary trigger, Elementor's success event as backup</summary>
+      <p>So a broken redirect doesn't cost me a real lead. Two independent signals, either one is enough.</p>
+    </details>
+
+    <details class="decision">
+      <summary>A session-flag to stop duplicate counting</summary>
+      <p>"Once per page" isn't enough — a refresh creates a new page load and would double-count the same person. I tested this on purpose: refreshed the thank-you page and confirmed in GA4 DebugView that a second event didn't fire.</p>
+    </details>
+  </div>
+</section>
+
+<!-- 5. STATIC PROOF -->
+<section id="proof">
+  <div class="wrap">
+    <p class="eyebrow">Static proof</p>
+    <h2>Insurance, not the main event.</h2>
+    <p class="proof" style="font-size:16px;">A live demo can fail for reasons that have nothing to do with whether the tracking works. This is the fallback layer, so the claim survives even if the demo doesn't load.</p>
+    <div class="proof-grid">
+      <div class="proof-card">
+        <img src="images/gtm-connected.png" alt="GTM container connected to shamsayousaf.com">
+        <div class="cap">GTM Preview — container connected</div>
+      </div>
+      <div class="proof-card">
+        <img src="images/gtm-tags.png" alt="GTM tags list">
+        <div class="cap">GTM tags</div>
+      </div>
+      <div class="proof-card">
+        <img src="images/gtm-triggers.png" alt="GTM triggers list">
+        <div class="cap">GTM triggers</div>
+      </div>
+      <div class="proof-card">
+        <img src="images/ga4-debugview.png" alt="GA4 DebugView showing live events">
+        <div class="cap">GA4 DebugView — live event timeline</div>
+      </div>
+      <div class="proof-card proof-full">
+        <img src="images/meta-pixel.png" alt="Meta Pixel Test Events">
+        <div class="cap">Meta Pixel — verified via test events</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. GSC HONESTY -->
+<section id="gsc">
+  <div class="wrap">
+    <p class="eyebrow">GSC — the honest one</p>
+    <h2>Not everything here works like the other three.</h2>
+    <p class="proof" style="font-size:16px;">GSC isn't inspectable live the way GTM, GA4, and Pixel are. Rather than fake a walkthrough, here's the real, verified property — as a screenshot, not a promise.</p>
+    <div class="gsc-block">
+      <img src="images/gsc-overview.png" alt="Google Search Console performance for shamsayousaf.com">
+      <p style="margin-bottom:6px; font-size:15px;">Connected and verified — early impressions are already coming in, position is still building.</p>
+      <div class="gsc-stats">
+        <span><b>5</b>total clicks</span>
+        <span><b>1.62k</b>total impressions</span>
+        <span><b>0.3%</b>average CTR</span>
+        <span><b>75.3</b>average position</span>
+        <span><b>3 months</b>reporting window</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. CTA -->
+<section class="cta">
+  <div class="wrap">
+    <p class="eyebrow">Next step</p>
+    <h2>Open the demo, check the container yourself, then message me.</h2>
+    <a class="btn" href="mailto:hello@shamsayousaf.com?subject=Let's%20talk%20tracking" >Schedule a Call →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Shamsa Yousaf — Tracking &amp; Measurement · shamsayousaf.com
+  </div>
+</footer>
+
+</body>
+</html>
