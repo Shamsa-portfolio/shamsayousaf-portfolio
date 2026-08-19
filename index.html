@@ -152,6 +152,7 @@
     grid-template-columns: 34px 1fr;
     gap: 16px;
     padding: 14px 0;
+    align-items: start;
   }
   .journey-steps li::before{
     content: counter(step);
@@ -161,7 +162,21 @@
     background: #EAF5F2;
     border-radius: 50%;
     width: 28px; height: 28px;
+    flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
+  }
+  .journey-steps li > *:last-child,
+  .journey-steps li{
+    line-height: 1.75;
+  }
+  .journey-steps li a,
+  .journey-steps li code{
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .journey-steps li > span{
+    min-width: 0;
+    width: 100%;
   }
 
   /* ---------- Build decisions ---------- */
@@ -316,10 +331,10 @@
     <h2>A path a technical peer can run in under two minutes.</h2>
     <p class="proof" style="font-size:16px;">No login, no access request, no tutorial pacing — you already know these tools. This just points at what to look for.</p>
     <ol class="journey-steps">
-      <li>Open <a href="https://shamsayousaf.com/" target="_blank" rel="noopener">shamsayousaf.com</a> and open DevTools.</li>
-      <li>Go to the Network tab, filter for <code>collect</code> and <code>facebook</code>.</li>
-      <li>Submit the lead form and watch the GA4 and Pixel requests fire live.</li>
-      <li>Refresh the thank-you page and confirm no duplicate event fires.</li>
+      <li><span>Open <a href="https://shamsayousaf.com/" target="_blank" rel="noopener">shamsayousaf.com</a> and open DevTools.</span></li>
+      <li><span>Go to the Network tab, filter for <code>collect</code> and <code>facebook</code>.</span></li>
+      <li><span>Submit the lead form and watch the GA4 and Pixel requests fire live.</span></li>
+      <li><span>Refresh the thank-you page and confirm no duplicate event fires.</span></li>
     </ol>
   </div>
 </section>
